@@ -4,7 +4,11 @@ import { useStores } from "../stores";
 
 const Component = observer(() => {
   const { AuthStore } = useStores();
-  return <div>Login:{AuthStore.values.username}</div>;
+  return (
+    <div>
+      <h1>Login:{AuthStore.values.username}</h1>
+    </div>
+  );
 });
 
 export default Component;
