@@ -1,27 +1,8 @@
-// import React, { useRef } from "react";
-// import { observer } from "mobx-react";
-// import { useStores } from "../stores";
-
-// const Component = observer(() => {
-//   const { AuthStore } = useStores();
-//   const inputRef = useRef();
-//   const bindChange = () => {
-//     console.log(inputRef.current.value)
-//     AuthStore.setUsername(inputRef.current.value)
-//   }
-
-//   return (
-//     <div>
-//       <h1>Login:{AuthStore.values.username}</h1>
-//       <input ref={inputRef} onChange={()=>bindChange() } />
-//     </div>
-//   );
-// });
-
-// export default Component;
 import React from "react";
 import { Button, Form, Input } from "antd";
 import styled from "styled-components";
+import { useStores } from "../stores";
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   max-width: 600px;
@@ -36,8 +17,21 @@ const Title = styled.h1`
 `;
 
 const Component = () => {
+  const { AuthStore } = useStores();
+  const Navigate = useNavigate();
+
   const onFinish = (values) => {
     console.log("Success:", values);
+    AuthStore.setUsername(values.username);
+    AuthStore.setPassword(values.password);
+    AuthStore.login()
+      .then(() => {
+        console.log("登录成功，跳转到首页");
+        Navigate("/")
+      })
+      .catch(() => {
+        console.log("登录失败");
+      });
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

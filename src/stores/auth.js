@@ -1,5 +1,6 @@
 import { makeObservable, observable, action } from "mobx";
 import { Auth } from "../models";
+import UserStore from "./user";
 class AuthStore {
   constructor() {
     makeObservable(this);
@@ -20,31 +21,32 @@ class AuthStore {
     return new Promise((resolve, reject) => {
       Auth.login(this.values.username, this.values.password)
         .then((user) => {
-          console.log("登录成功");
+          UserStore.pullUser();
           resolve(user);
         })
         .catch((err) => {
-          console.log("登录失败");
+          UserStore.resetUser();
           reject(err);
         });
     });
   }
   @action register() {
     return new Promise((resolve, reject) => {
-      Auth.login(this.values.username, this.values.password)
+      Auth.register(this.values.username, this.values.password)
         .then((user) => {
-          console.log("注册成功");
+          UserStore.pullUser();
           resolve(user);
         })
         .catch((err) => {
-          console.log("注册失败");
+          UserStore.resetUser();
           reject(err);
         });
     });
   }
   @action logout() {
     Auth.logout();
+    UserStore.resetUser();
   }
 }
 
-export { AuthStore };
+export default new AuthStore();
