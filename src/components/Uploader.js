@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { useStores } from "../stores";
 import { observer, useLocalObservable } from "mobx-react";
 import { InboxOutlined } from "@ant-design/icons";
-import { message, Upload } from "antd";
+import { message, Upload, Spin } from "antd";
 import styled from "styled-components";
 const { Dragger } = Upload;
 
@@ -65,6 +65,14 @@ const Component = observer(() => {
         message.warning("请先登录在上传!");
         return false;
       }
+      if (!/(svg$)|(png$)|(jpg$)|(jpeg$)|(gif$)/gi.test(file.type)) {
+        message.error("只能上传 svg/png/jpg/gif 格式的图片");
+        return false;
+      }
+      if (file.size > 1024 * 1024) {
+        message.error("图片最大 1M");
+        return false;
+      }
       ImageStore.upload()
         .then((serverFile) => {
           console.log("上传成功");
@@ -79,18 +87,17 @@ const Component = observer(() => {
 
   return (
     <>
-      <Dragger {...props}>
-        <p className="ant-upload-drag-icon">
-          <InboxOutlined />
-        </p>
-        <p className="ant-upload-text">
-          Click or drag file to this area to upload
-        </p>
-        <p className="ant-upload-hint">
-          Support for a single or bulk upload. Strictly prohibit from uploading
-          company data or other band files
-        </p>
-      </Dragger>
+      <Spin tip="上传中" spinning={ImageStore.isUpLoading}>
+        <Dragger {...props}>
+          <p className="ant-upload-drag-icon">
+            <InboxOutlined />
+          </p>
+          <p className="ant-upload-text">点击或者拖拽上传图片</p>
+          <p className="ant-upload-hint">
+            仅支持 .png/.jpg/.gif/.svg 格式的图片, 图片最大 1M
+          </p>
+        </Dragger>
+      </Spin>
       <div>
         {ImageStore.serverFile ? (
           <Result>
@@ -126,7 +133,11 @@ const Component = observer(() => {
                   placeholder="最大高度(可选)"
                 />
               </dd>
-              <dd><a target="_blank" href={store.fullStr}>{store.fullStr}</a></dd>
+              <dd>
+                <a target="_blank" href={store.fullStr}>
+                  {store.fullStr}
+                </a>
+              </dd>
             </dl>
           </Result>
         ) : null}

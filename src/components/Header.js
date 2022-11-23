@@ -28,6 +28,14 @@ const Login = styled.div`
 const StyleButton = styled(Button)`
   margin-left: 10px;
 `;
+const StyleSpan = styled.span`
+  margin-right: 8px;
+  color: #58a6ff;
+  height: 100%;
+  display: inline-block;
+  cursor: pointer;
+`;
+
 const Component = observer(() => {
   const Navigate = useNavigate();
   const { UserStore, AuthStore } = useStores();
@@ -55,7 +63,7 @@ const Component = observer(() => {
       <Login>
         {UserStore.currentUser ? (
           <>
-            {UserStore.currentUser.attributes.username}{" "}
+            <StyleSpan>{UserStore.currentUser.attributes.username}</StyleSpan>
             <StyleButton type="primary" onClick={handleLogout}>
               注销
             </StyleButton>

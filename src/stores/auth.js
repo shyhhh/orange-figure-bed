@@ -1,6 +1,7 @@
 import { makeObservable, observable, action,configure } from "mobx";
 import { Auth } from "../models";
 import UserStore from "./user";
+import message from "antd"
 
 configure({
     enforceActions: "never",
@@ -30,6 +31,7 @@ class AuthStore {
         })
         .catch((err) => {
           UserStore.resetUser();
+          message.error("登录失败")
           reject(err);
         });
     });
@@ -43,6 +45,7 @@ class AuthStore {
         })
         .catch((err) => {
           UserStore.resetUser();
+          message.error("注册失败")
           reject(err);
         });
     });
