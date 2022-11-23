@@ -1,12 +1,17 @@
 import React, { createContext, useContext } from "react";
 import AuthStore from "./auth";
-import UserStore from "./user"
+import UserStore from "./user";
 import ImageStore from "./image";
 
 const context = createContext({
   AuthStore,
   UserStore,
-  ImageStore
+  ImageStore,
 });
 
+window.stores = {
+  AuthStore,
+  UserStore,
+  ImageStore,
+};
 export const useStores = () => useContext(context);
