@@ -1,6 +1,10 @@
-import { makeObservable, observable, action } from "mobx";
+import { makeObservable, observable, action,configure } from "mobx";
 import { Auth } from "../models";
 import UserStore from "./user";
+
+configure({
+    enforceActions: "never",
+})
 class AuthStore {
   constructor() {
     makeObservable(this);
