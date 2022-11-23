@@ -1,22 +1,16 @@
 import React from "react";
 import { observer } from "mobx-react";
 import { useStores } from "../stores";
-import Uploader from "../components/Uploader"
+import Uploader from "../components/Uploader";
+import Tips from "../components/Tips";
 
 const Home = observer(() => {
   const { UserStore } = useStores();
   return (
     <>
-      <h1>
-        {UserStore.currentUser ? (
-          <>
-            Hello {UserStore.currentUser.attributes.username}
-          </>
-        ) : (
-          "用户没有登录"
-        )}
-      </h1>
-      <Uploader/>
+      {/* {UserStore.currentUser ? null : <Tips />} */}
+      <Tips>请先登录在上传</Tips>
+      <Uploader />
     </>
   );
 });
