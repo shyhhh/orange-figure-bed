@@ -21,17 +21,12 @@ const Component = () => {
   const Navigate = useNavigate();
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     AuthStore.setUsername(values.username);
     AuthStore.setPassword(values.password);
     AuthStore.login()
       .then(() => {
-        console.log("登录成功，跳转到首页");
         Navigate("/")
       })
-      .catch(() => {
-        console.log("登录失败");
-      });
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect} from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import LogoUrl from "./logo.svg";
 import styled from "styled-components";
@@ -44,13 +44,15 @@ const Component = observer(() => {
     AuthStore.logout();
   };
   const handleLogin = () => {
-    console.log("跳转到登录页面");
     Navigate("/login");
   };
   const handleRegister = () => {
-    console.log("跳转到注册页面");
     Navigate("/register");
   };
+
+  useEffect(()=>{
+    UserStore.pullUser();
+  }, [])
 
   return (
     <Header>

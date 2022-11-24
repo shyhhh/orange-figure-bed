@@ -22,21 +22,21 @@ class HistoryStore {
 
   @action find() {
     this.isLoading = true;
-    Uploader.find({ page: this.page, limit: this.limit })
-      .then((newList) => {
+    Uploader.find({page: this.page, limit: this.limit})
+      .then(newList => {
         this.append(newList);
         this.page++;
         if (newList.length < this.limit) {
+          console.log(this)
+          console.log("1111111111")
           this.hasMore = false;
         }
-      })
-      .catch((error) => {
-        message.error("加载数据失败");
-      })
-      .finally(() => {
+      }).catch(error => {
+        message.error('加载数据失败');
+      }).finally(() => {
         this.isLoading = false;
       });
-    }
+  }
 
   @action reset() {
     this.list = [];
@@ -44,6 +44,7 @@ class HistoryStore {
     this.hasMore = true;
     this.page = 0;
   }
+
 }
 
 export default new HistoryStore();

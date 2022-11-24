@@ -11,10 +11,4 @@ const context = createContext({
   HistoryStore
 });
 
-window.stores = {
-  AuthStore,
-  UserStore,
-  ImageStore,
-  HistoryStore
-};
 export const useStores = () => useContext(context);

@@ -26,10 +26,10 @@ const Component = observer(() => {
       console.log('卸载')
       HistoryStore.reset();
     }
-  }, []);
+  },[]);
 
   return (
-    <div>
+    <>
       <InfiniteScroll
         initialLoad={true}
         pageStart={0}
@@ -48,7 +48,7 @@ const Component = observer(() => {
                 <h5>{item.attributes.filename}</h5>
               </div>
               <div>
-                <a href={item.attributes.url.attributes.url}>{item.attributes.url.attributes.url}</a>
+                 <a target="_blank" href={item.attributes.url.attributes.url}>{item.attributes.url.attributes.url}</a>
               </div>
             </List.Item>
           }
@@ -60,7 +60,7 @@ const Component = observer(() => {
           )}
         </List>
       </InfiniteScroll>
-    </div>
+    </>
   );
 });
 

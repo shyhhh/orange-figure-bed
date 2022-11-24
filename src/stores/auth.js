@@ -33,7 +33,7 @@ class AuthStore {
         })
         .catch((err) => {
           UserStore.resetUser();
-          message.error("登录失败")
+          message.warning("请先注册再登录")
           reject(err);
         });
     });

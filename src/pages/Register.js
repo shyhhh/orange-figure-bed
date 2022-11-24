@@ -1,8 +1,8 @@
 import React from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, message } from "antd";
 import styled from "styled-components";
 import { useStores } from "../stores";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 const Wrapper = styled.div`
   max-width: 600px;
@@ -18,19 +18,17 @@ const Title = styled.h1`
 
 const Component = () => {
   const { AuthStore } = useStores();
-  const Navigate = useNavigate()
+  const Navigate = useNavigate();
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     AuthStore.setUsername(values.username);
     AuthStore.setPassword(values.password);
     AuthStore.register()
       .then(() => {
-        console.log("注册成功，跳转到首页");
-        Navigate("/")
+        Navigate("/");
       })
       .catch(() => {
-        console.log("登录失败，什么都不做");
+        message.warning("登录失败");
       });
   };
   const onFinishFailed = (errorInfo) => {

@@ -1,7 +1,7 @@
 import React from 'react';
 import List from '../components/List';
 
-function History() {
+const History= () =>{
   return (
     <>
       <h1>History</h1>

@@ -18,17 +18,22 @@ const Auth = {
       );
     });
   },
+
   login(username, password) {
+    console.log("------");
+    console.log(username, password);
     return new Promise((resolve, reject) => {
-      AV.User.logIn(username, password).then(
+      User.logIn(username, password).then(
         (loginedUser) => resolve(loginedUser),
         (error) => reject(error)
       );
     });
   },
+
   logout() {
     User.logOut();
   },
+
   getCurrentUser() {
     return User.current();
   },
@@ -48,21 +53,21 @@ const Uploader = {
       );
     });
   },
-  find({page=0, limit=10}) {
-    const query = new AV.Query('Image');
-    query.include('owner');
-    query.limit(limit);
-    query.skip(page*limit);
-    query.descending('createdAt');
-    query.equalTo('owner', AV.User.current());
-    return new Promise((resolve, reject) => {
-      query.find()
-        .then(results => resolve(results))
-        .catch(error => reject(error))
-    });
-  }
-};
 
-window.Uploader = Uploader;
+  find({ page = 0, limit = 10 }) {
+    const query = new AV.Query("Image");
+    query.include("owner");
+    query.limit(limit);
+    query.skip(page * limit);
+    query.descending("createdAt");
+    query.equalTo("owner", AV.User.current());
+    return new Promise((resolve, reject) => {
+      query
+        .find()
+        .then((results) => resolve(results))
+        .catch((error) => reject(error));
+    });
+  },
+};
 
 export { Auth, Uploader };
