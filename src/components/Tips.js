@@ -1,6 +1,5 @@
 import React from "react";
 import { useStores } from "../stores";
-import { observer } from "mobx-react";
 import styled from "styled-components";
 
 const Tips = styled.div`

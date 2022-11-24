@@ -105,10 +105,7 @@ const Component = observer(() => {
             <dl>
               <dt>线上地址</dt>
               <dd>
-                <a
-                  target="_blank"
-                  href={ImageStore.serverFile.attributes.url.attributes.url}
-                >
+                <a href={ImageStore.serverFile.attributes.url.attributes.url}>
                   {ImageStore.serverFile.attributes.url.attributes.url}
                 </a>
               </dd>
@@ -134,9 +131,7 @@ const Component = observer(() => {
                 />
               </dd>
               <dd>
-                <a target="_blank" href={store.fullStr}>
-                  {store.fullStr}
-                </a>
+                <a href={store.fullStr}>{store.fullStr}</a>
               </dd>
             </dl>
           </Result>
