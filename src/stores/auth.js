@@ -1,7 +1,7 @@
 import { makeObservable, observable, action,configure } from "mobx";
 import { Auth } from "../models";
 import UserStore from "./user";
-import message from "antd"
+import {message} from "antd"
 
 configure({
     enforceActions: "never",
