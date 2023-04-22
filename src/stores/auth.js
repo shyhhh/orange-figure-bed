@@ -47,7 +47,7 @@ class AuthStore {
         })
         .catch((err) => {
           UserStore.resetUser();
-          message.error("注册失败")
+          message.error("账户已存在")
           reject(err);
         });
     });
