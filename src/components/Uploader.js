@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { useStores } from "../stores";
+import { Link } from "react-router-dom";
 import { observer, useLocalObservable } from "mobx-react";
 import { InboxOutlined } from "@ant-design/icons";
 import { message, Upload, Spin } from "antd";
@@ -17,6 +18,19 @@ const H1 = styled.h1`
 `;
 const Image = styled.img`
   max-width: 300px;
+`;
+const CopyButton = styled.button`
+  background-color: #007bff;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+
+  &:hover {
+    background-color: #0069d9;
+  }
 `;
 
 const Component = observer(() => {
@@ -104,9 +118,24 @@ const Component = observer(() => {
             <dl>
               <dt>线上地址</dt>
               <dd>
-                <a href={ImageStore.serverFile.attributes.url.attributes.url}>
-                  {ImageStore.serverFile.attributes.url.attributes.url}
-                </a>
+                <Link to={ImageStore.serverFile.attributes.url.attributes.url}>
+                  在线预览
+                </Link>
+                <CopyButton
+                  onClick={() => {
+                    navigator.clipboard
+                      .writeText(ImageStore.serverFile.attributes.url.attributes.url)
+                      .then(() => {
+                        message.success("已复制到剪贴板");
+                      })
+                      .catch((err) => {
+                        console.error("复制链接失败：", err);
+                        message.error("复制链接失败");
+                      });
+                  }}
+                >
+                  复制链接
+                </CopyButton>
               </dd>
               <dt>文件名</dt>
               <dd>{ImageStore.filename}</dd>
@@ -130,7 +159,22 @@ const Component = observer(() => {
                 />
               </dd>
               <dd>
-                <a href={store.fullStr}>{store.fullStr}</a>
+                <Link to={store.fullStr}>在线预览</Link>
+                <CopyButton
+                  onClick={() => {
+                    navigator.clipboard
+                      .writeText(store.fullStr)
+                      .then(() => {
+                        message.success("已复制到剪贴板");
+                      })
+                      .catch((err) => {
+                        console.error("复制链接失败：", err);
+                        message.error("复制链接失败");
+                      });
+                  }}
+                >
+                  复制链接
+                </CopyButton>
               </dd>
             </dl>
           </Result>
