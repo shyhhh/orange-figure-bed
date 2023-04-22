@@ -14,8 +14,8 @@ class AuthStore {
   }
 
   @observable values = {
-    username: "",
-    password: "",
+    username: "welcome",
+    password: "hhhh",
   };
 
   @action setUsername(username) {

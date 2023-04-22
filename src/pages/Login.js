@@ -57,6 +57,7 @@ const Component = () => {
         <Form.Item
           label="用户名"
           name="username"
+          initialValue="welcome"
           rules={[
             {
               required: true,
@@ -73,6 +74,7 @@ const Component = () => {
         <Form.Item
           label="密码"
           name="password"
+          initialValue="hhhh"
           rules={[
             {
               required: true,
